@@ -21,8 +21,9 @@ request = ReplyKeyboardMarkup(resize_keyboard=True).add(
 @dp.message_handler(command=['start', 'send'])
 async def start_handler(msg: types.Message):
     await msg.answer('Hi, send me ur contact!', reply_markup=request)
+    await States.contact.set()
 
-@dp.message_handler(state=States.contact)
+@dp.message_handler(state=States.contact, content_types=types.ContentTypes.CONTACT)
 async def start_handler(msg: types.Message, state):
     number = None
     uid = msg.from_user.id
